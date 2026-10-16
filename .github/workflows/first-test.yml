@@ -42,4 +42,5 @@ jobs:
           file: docker/images/alpine/Dockerfile
           push: false
           tags: newman:test
-
+          build-args: |
+            NEWMAN_VERSION=6.2.3
