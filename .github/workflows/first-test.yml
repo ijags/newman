@@ -24,3 +24,22 @@ jobs:
 
       - name: Run Newman unit tests
         run: npm run test-unit
+
+  docker-build:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/images/alpine/Dockerfile
+          push: false
+          tags: newman:test
+
